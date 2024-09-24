@@ -13,7 +13,7 @@
     <script src="https://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
 
     <!-- Complemento del plunin -->
-    <script type="text/javascript" src='https://maps.google.com/maps/api/js?sensor=false&libraries=places&key=AIzaSyBg8g8zcX5yG2KCtULlw-4eQ-lXd-WEBeI'></script>
+    <script type="text/javascript" src='https://maps.google.com/maps/api/js?sensor=false&libraries=places&key=AIzaSyDqTDKfWQPS67DYvZbZxbIQDtAPtS4kBiM'></script>
     <script src="js/locationpicker.jquery.js"></script>
 </head>
 <body>
@@ -49,6 +49,22 @@
                                 </div>
                                 <div id="ModalMapPreview" style="width:100%; height:400px;"></div>
                                 <div class="clearfix">&nbsp;</div>
+                                <div class="m-t-small">
+                                    <label class="p-r-small col-sm-1 control-label">Latitud: </label>
+                                    <div class="col-sm-3">
+                                        <asp:TextBox ID="ModalMapLat" CssClass="form-control" runat="server"></asp:TextBox>
+                                    </div>
+                                    <label class="p-r-small col-sm-1 control-label">Longitud: </label>
+                                    <div class="col-sm-3">
+                                        <asp:TextBox ID="ModalMaplong" CssClass="form-control" runat="server"></asp:TextBox>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <button type="button" class="btn btn-primary btn-block" data-dismiss="modal">Acertar</button>
+                                    </div>
+                                    <div class="clearfix"></div>
+
+
+                                </div>
                                 <!-- Hacer uso de script para agregar mapa al modal --> 
                                 <script>
                                     $('#ModalMapPreview').locationpicker({
@@ -58,8 +74,13 @@
                                             longitude: -109.93136356074504
                                         },
                                         enableAutocomplete: true,
-                                        inputBinding:{
+                                        inputBinding: {
+                                            latitudeInput: $('#<%=ModalMapLat.ClientID%>'),
+                                            longitudeInput: $('#<%=ModalMaplong.ClientID%>'),
                                             locationNameInput: $('#<%=ModalMapaddress.ClientID%>')
+                                        },
+                                        onchanged: function (currentLocation, radius, isMarkerDropped) {
+                                            $('#ubicacion').html($('#<%=ModalMapaddress.ClientID%>').val());
                                         }
                                     });
                                     $('ModalMap').on('show.bs.modal', function () {
